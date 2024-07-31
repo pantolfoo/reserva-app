@@ -1,6 +1,6 @@
 from flask import Flask, render_template, Request
-import csv
-from funcoes import salva_cadastro
+from CSV import *
+from reserva_app.funcoes import *
 
 app = Flask (__name__)
 
@@ -40,13 +40,10 @@ def listar_salas_pag():
 
 
 
-
-
-
 # ROTAS COM POST
 
 @app.route('/cadastro', methods=['POST'])
 def cadastro_post():
-    salva_cadastro()
+    salvar_cadastro()
     return render_template('reservas.html')
 
