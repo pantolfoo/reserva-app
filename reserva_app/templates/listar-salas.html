@@ -65,13 +65,16 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Laboratório</td>
-                <td>PCs com intel i5, 8GB de RAM</td>
-                <td>20</td>
-                <td>Sim</td>
-                <td>
+            
+                <!--{% for sala in salas %}
+                <tr>
+                    <td>{{ sala.tipo }}</td>
+                    <td>{{ sala.capacidade }}</td>
+                    <td>{{ sala.descricao }}</td>
+                </tr>
+                {% endfor %}-->
+            </tbody>
+        </table>
                   <form action="">
                     <button class="btn btn-sm btn-dark" type="submit" formaction="/templates/cadastrar-sala.html">Editar</button>
                     <button class="btn btn-sm btn-dark" type="submit" formaction="/templates/reservas.html">Desativar</button>

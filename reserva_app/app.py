@@ -47,3 +47,23 @@ def cadastro_post():
     salvar_cadastro()
     return render_template('reservas.html')
 
+@app.route('/cadastrar-sala', methods=['POST'])
+def salas_post():
+    salvar_sala()
+    return render_template('listar-salas.html')
+
+@app.route('/reservar-sala', methods=['POST'])
+def reservas_post():
+    salvar_reserva()
+    return render_template('reservas.html')
+
+
+
+# ROTAS DE LEITURA DO CSV
+
+# @app.route('/listar-salas')
+# def listar_salas():
+#     salas = ler_salas_csv()
+#     return render_template('listar-salas.html', salas=salas)
+# tentatva da leitura do cadastro-sala.csv
+    
