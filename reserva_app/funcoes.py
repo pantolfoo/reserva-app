@@ -1,7 +1,7 @@
 # definir funcoes
 # nome seguido de underline e verbos
 
-from flask import request 
+from flask import request, render_template, flash, redirect
 import csv, CSV
 
 # imports do csv:
@@ -17,12 +17,19 @@ def salvar_cadastro():
         nome = request.form['nome']
         email = request.form['email']
         senha = request.form['senha']
+        
+        # condicional caso usuáio não preencha todos os campos
+        if nome == '' or email == '' or senha == '':
+            flash ("Preencha todos os campos!")
+            return render_template('cadastro.html')
 
+        else:
         #escreve os dados de entrada no csv
-        with open(cad_usuarios, 'a', newline='') as usuarios_cadastros:
-            escrever = csv.writer(usuarios_cadastros)
-            escrever.writerow([nome, email, senha])
-            
+            with open(cad_usuarios, 'a', newline='') as usuarios_cadastros:
+                escrever = csv.writer(usuarios_cadastros)
+                escrever.writerow([nome, email, senha])
+            return render_template('reservas.html')
+
             
 def salvar_sala():
     if request.method == 'POST':
@@ -30,7 +37,11 @@ def salvar_sala():
         tipo = request.form['tipo']
         capacidade = request.form['capacidade']
         descricao = request.form['descricao']
-        
+
+        # condicional caso usuáio não preencha todos os campos
+        if tipo == '' or capacidade == '' or descricao == '':
+            return render_template ('cadastrar-sala.html', erro = "Preencha todos os campos!")
+
         # escreve no CSV
         with open(cad_sala, 'a', newline='') as salas_cadastros:
             escrever = csv.writer(salas_cadastros)
@@ -43,6 +54,11 @@ def salvar_reserva():
         sala = request.form['sala']
         inicio = request.form['inicio']
         final = request.form['final']
+
+        # condicional caso usuáio não preencha todos os campos
+        if sala == '' or inicio == '' or final == '':
+            return render_template ('cadastro.html', erro = "Preencha todos os campos!")
+
         
         # escreve no CSV
         with open(res_sala, 'a', newline='') as reservas_salas:

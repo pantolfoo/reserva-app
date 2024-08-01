@@ -4,6 +4,7 @@ from reserva_app.funcoes import *
 
 app = Flask (__name__)
 
+
 # definir rotas
 # nome seguido de hifen e igual no html!
 
@@ -42,10 +43,10 @@ def listar_salas_pag():
 
 # ROTAS COM POST
 
-@app.route('/cadastro', methods=['POST'])
-def cadastro_post():
-    salvar_cadastro()
-    return render_template('reservas.html')
+# @app.route('/cadastro', methods=['POST'])
+# def cadastro_post():
+#     salvar_cadastro()
+#     return render_template('reservas.html')
 
 @app.route('/cadastrar-sala', methods=['POST'])
 def salas_post():
