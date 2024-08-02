@@ -1,6 +1,7 @@
-from flask import Flask, render_template, Request
+from flask import Flask, render_template
 from CSV import *
-from reserva_app.funcoes import *
+import csv
+from reserva_app.funcoes import ler_salas_csv, salvar_sala, salvar_reserva, salvar_cadastro
 
 app = Flask (__name__)
 
@@ -34,8 +35,9 @@ def cadastro_sala_pag():
     return render_template ('cadastrar-sala.html')
 # listar sala
 @app.route('/listar-salas')
-def listar_salas_pag():
-    return render_template ('listar-salas.html')
+def listar_salas():
+    salas = ler_salas_csv()
+    return render_template('listar-salas.html', salas=salas)
 
 #rotas ok, não mexer!
 
@@ -43,10 +45,10 @@ def listar_salas_pag():
 
 # ROTAS COM POST
 
-# @app.route('/cadastro', methods=['POST'])
-# def cadastro_post():
-#     salvar_cadastro()
-#     return render_template('reservas.html')
+@app.route('/cadastro', methods=['POST'])
+def cadastro_post():
+    salvar_cadastro()
+    return render_template('reservas.html')
 
 @app.route('/cadastrar-sala', methods=['POST'])
 def salas_post():
@@ -56,15 +58,12 @@ def salas_post():
 @app.route('/reservar-sala', methods=['POST'])
 def reservas_post():
     salvar_reserva()
-    return render_template('reservas.html')
+    return render_template('reserva/detalhe-reserva.html')
 
 
 
 # ROTAS DE LEITURA DO CSV
 
-# @app.route('/listar-salas')
-# def listar_salas():
-#     salas = ler_salas_csv()
-#     return render_template('listar-salas.html', salas=salas)
-# tentatva da leitura do cadastro-sala.csv
+
+#tentatva da leitura do cadastro-sala.csv
     

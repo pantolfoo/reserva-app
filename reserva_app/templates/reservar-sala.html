@@ -53,23 +53,20 @@
     </div>
     <div>
       <div class="col">
-        <form action="reservar-sala" method='POST'>
+        <form action="/reservar-sala" method='POST'>
           <div class="mb-3">
             <label for="sala" class="form-label">Sala</label>
-            <select class="form-select" id="sala" name="sala">
+            <select class="form-select" id="sala" name="sala" required>
               <option selected>Selecione a sala</option>
-              <option value="1">Sala 1</option>
-              <option value="2">Sala 2</option>
-              <option value="3">Sala 3</option>
             </select>
           </div>
           <div class="mb-3">
             <label for="inicio" class="form-label">Data e Hora Início</label>
-            <input type="datetime-local" class="form-control" name="inicio" id="inicio">
+            <input type="datetime-local" class="form-control" name="inicio" id="inicio" required>
           </div>
           <div class="mb-3">
             <label for="final" class="form-label">Data e Hora Fim</label>
-            <input type="datetime-local" class="form-control" name="final" id="final">
+            <input type="datetime-local" class="form-control" name="final" id="final" required>
           </div>
           <button type="submit" class="btn btn-dark">Reservar</button>
         </form>

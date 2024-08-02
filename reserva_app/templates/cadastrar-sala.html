@@ -53,7 +53,7 @@
             <form action="/cadastrar-sala" method="POST">
                 <div class="mb-3">
                     <label for="tipo" class="form-label">Tipo</label>
-                    <select class="form-select" id="tipo" name="tipo">
+                    <select class="form-select" id="tipo" name="tipo" required>
                         <option selected>Selecione um tipo</option>
                         <option value="Laboratório de Informática">Laboratório de Informática</option>
                         <option value="Laboratório de Química">Laboratório de Química</option>
@@ -62,11 +62,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="capacidade" class="form-label">Capacidade</label>
-                    <input type="number" class="form-control" name="capacidade" id="capacidade">
+                    <input type="number" class="form-control" name="capacidade" id="capacidade" required>
                 </div>
                 <div class="mb-3">
                     <label for="descricao" class="form-label">Descrição</label>
-                    <textarea class="form-control" name="descricao" id="descricao" cols="30" rows="10"></textarea>
+                    <textarea class="form-control" name="descricao" id="descricao" cols="30" rows="10" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-dark">Cadastrar</button>
             </form>
