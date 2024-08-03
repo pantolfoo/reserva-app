@@ -21,7 +21,7 @@ def cadastro_pag():
 # reservar sala
 @app.route('/reservar-sala')
 def reservar_sala_pag():
-    return render_template ('reservar-sala.html')
+    return render_template ('reservar-sala.html', salas = ler_salas_csv())
 # reservas
 @app.route('/reservas')
 def reservas_pag():
@@ -34,11 +34,6 @@ def detalhe_reserva_pag():
 @app.route('/cadastrar-sala')
 def cadastro_sala_pag():
     return render_template ('cadastrar-sala.html')
-# listar sala
-# @app.route('/listar-salas')
-# def listar_salas():
-#     salas = ler_salas_csv()
-#     return render_template('listar-salas.html', salas=salas)
 
 #rotas ok, não mexer!
 
@@ -54,7 +49,7 @@ def cadastro_post():
 @app.route('/cadastrar-sala', methods=['POST'])
 def salas_post():
     salvar_sala()
-    return render_template('listar-salas.html')
+    return render_template('listar-salas.html', salas = ler_salas_csv())
 
 @app.route('/reservar-sala', methods=['POST'])
 def reservas_post():
