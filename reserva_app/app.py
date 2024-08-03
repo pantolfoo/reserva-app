@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template
 from CSV import *
 import csv
@@ -64,6 +65,11 @@ def reservas_post():
 
 # ROTAS DE LEITURA DO CSV
 
+@app.route('/listar-salas')
+def listar_salas():
+    salas = ler_salas_csv()
+    print(f"Salas carregadas: {salas}")  # Adiciona uma mensagem de depuração
+    return render_template('listar-salas.html', salas=salas)
 
 #tentatva da leitura do cadastro-sala.csv
     

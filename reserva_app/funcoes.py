@@ -54,13 +54,12 @@ def salvar_reserva():
             
 
 # funcoes de leitura e exibição dos dados no csv
-
 def ler_salas_csv():
     salas = []
     with open(cad_sala, 'r', newline='') as salas_cadastros:
         leitor = csv.reader(salas_cadastros)
         next(leitor)  # Pula o cabeçalho se houver
-        
+
         for idx, linha in enumerate(leitor, start=1):
             sala = {
                 'id': idx,
@@ -69,10 +68,29 @@ def ler_salas_csv():
                 'descricao': linha[2]
             }
             salas.append(sala)
-    
+
     return salas
 # tentatva da leitura do cadastro-sala.csv
     
+
+
+
+#def ler_reservas_csv():
+#    reservas = []
+#    with open(res_sala, 'r', newline='') as reservas_salas:
+#        leitor = csv.reader(reservas_salas)
+#        next(leitor)  # Pula o cabeçalho se houver
+#        
+#        for idx, linha in enumerate(leitor, start=1):
+#            reserva = {
+#                'sala': sala[0],
+#                'inicio': inicio[1],
+#                'final': final[2]
+#            }
+#            reservas.append(reserva)
+#  
+#   return reservas
+#
 
 
 
