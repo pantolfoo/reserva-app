@@ -51,13 +51,19 @@ def salvar_reserva():
         with open(res_sala, 'a', newline='') as reservas_salas:
             escrever = csv.writer(reservas_salas)
             escrever.writerow([sala, inicio, final])
-            
+
+        return {
+            'sala' : sala,
+            'inicio' : inicio,
+            'final' : final
+        }
+
 
 # funcoes de leitura e exibição dos dados no csv
 def ler_salas_csv():
     salas = []
-    with open(cad_sala, 'r', newline='') as salas_cadastros:
-        leitor = csv.reader(salas_cadastros)
+    with open(cad_sala, 'r', newline='') as reservas_salas:
+        leitor = csv.reader(reservas_salas)
         next(leitor)  # Pula o cabeçalho se houver
 
         for idx, linha in enumerate(leitor, start=1):
