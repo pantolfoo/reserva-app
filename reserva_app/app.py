@@ -63,7 +63,7 @@ def reservas_post():
 @app.route('/listar-salas')
 def listar_salas():
     salas = ler_salas_csv()
-    print(f"Salas carregadas: {salas}")  
+    print(f"Salas carregadas: {salas}")
     return render_template('listar-salas.html', salas=salas)
 #tentatva da leitura do cadastro-sala.csv
     

@@ -1,81 +1,71 @@
-# definir funcoes
-# nome seguido de underline e verbos
-
 from flask import Flask, render_template, request, flash
-import csv
-from CSV import *
-from reserva_app.app import *
 
-# imports do csv:
-cad_usuarios = 'CSV/cadastro-usuario.csv'
-cad_sala = 'CSV/cadastro-sala.csv'
-res_sala = 'CSV/reserva-sala.csv'
+# Classe para gerenciar dados de usuários, salas e reservas
+class DadosReservas:
+    def __init__(self):
+        self.usuarios = []
+        self.salas = []
+        self.reservas = []
 
+    def salvar_usuario(self, nome, email, senha):
+        self.usuarios.append({'nome': nome, 'email': email, 'senha': senha})
 
-# funcoes de armazenamento dos dados dos formularios
+    def salvar_sala(self, tipo, capacidade, descricao):
+        self.salas.append({'tipo': tipo, 'capacidade': capacidade, 'descricao': descricao})
+
+    def salvar_reserva(self, sala, inicio, final):
+        self.reservas.append({'sala': sala, 'inicio': inicio, 'final': final})
+
+    def retornar_usuarios(self):
+        return self.usuarios
+
+    def retornar_salas(self):
+        return self.salas
+
+    def retornar_reservas(self):
+        return self.reservas
+
+# Instanciando a classe
+dados_reservas = DadosReservas()
+
+# Funções de armazenamento dos dados dos formulários
 def salvar_cadastro():
     if request.method == 'POST':
-        #pega cada requisição do form
         nome = request.form['nome']
         email = request.form['email']
         senha = request.form['senha']
         
-        #escreve os dados de entrada no csv
-        with open(cad_usuarios, 'a', newline='') as usuarios_cadastros:
-            escrever = csv.writer(usuarios_cadastros)
-            escrever.writerow([nome, email, senha])
+        # Salva usuário na lista
+        dados_reservas.salvar_usuario(nome, email, senha)
         return render_template('reservas.html')
 
-            
 def salvar_sala():
     if request.method == 'POST':
-        # se o forms for enviado, pega cada campo do formulário
         tipo = request.form['tipo']
         capacidade = request.form['capacidade']
         descricao = request.form['descricao']
-
-        # escreve no CSV
-        with open(cad_sala, 'a', newline='') as salas_cadastros:
-            escrever = csv.writer(salas_cadastros)
-            escrever.writerow([tipo, capacidade, descricao])
         
+        # Salva sala na lista
+        dados_reservas.salvar_sala(tipo, capacidade, descricao)
 
 def salvar_reserva():
     if request.method == 'POST':
-       # se o forms for enviado, pega cada campo do formulário
         sala = request.form['sala']
         inicio = request.form['inicio']
         final = request.form['final']
-
-        # escreve no CSV       
-        with open(res_sala, 'a', newline='') as reservas_salas:
-            escrever = csv.writer(reservas_salas)
-            escrever.writerow([sala, inicio, final])
-
+        
+        # Salva reserva na lista
+        dados_reservas.salvar_reserva(sala, inicio, final)
+        
         return {
-            'sala' : sala,
-            'inicio' : inicio,
-            'final' : final
+            'sala': sala,
+            'inicio': inicio,
+            'final': final
         }
 
-
-# funcoes de leitura e exibição dos dados no csv
-def ler_salas_csv():
-    salas = []
-    with open(cad_sala, 'r', newline='') as reservas_salas:
-        leitor = csv.reader(reservas_salas)
-        next(leitor)  # Pula o cabeçalho se houver
-
-        for idx, linha in enumerate(leitor, start=1):
-            sala = {
-                'id': idx,
-                'tipo': linha[0],
-                'capacidade': linha[1],
-                'descricao': linha[2]
-            }
-            salas.append(sala)
-
-    return salas
+# Funções de leitura e exibição dos dados
+def ler_salas():
+    return dados_reservas.retornar_salas()
 # tentatva da leitura do cadastro-sala.csv
     
 
