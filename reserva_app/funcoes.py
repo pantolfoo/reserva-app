@@ -1,4 +1,9 @@
 from flask import Flask, render_template, request, flash
+from reserva_app.main import inserir_reserva,listar_salas
+from reserva_app.conexao_bd import conexao_abrir,conexao_fechar
+
+con = conexao_abrir("localhost", "root", "1234", "ReservaApp")
+
 
 # Classe para gerenciar dados de usuários, salas e reservas
 class DadosReservas:
@@ -53,7 +58,9 @@ def salvar_reserva():
         sala = request.form['sala']
         inicio = request.form['inicio']
         final = request.form['final']
-        
+
+        # inserir_reserva(con,"3","2025-08-18:12:00:00", "2025-08-18:18:00:00","1")
+        inserir_reserva(con, "3", inicio, final, "1")
         # Salva reserva na lista
         dados_reservas.salvar_reserva(sala, inicio, final)
         
@@ -65,7 +72,7 @@ def salvar_reserva():
 
 # Funções de leitura e exibição dos dados
 def ler_salas():
-    return dados_reservas.retornar_salas()
+    return listar_salas(con)
 # tentatva da leitura do cadastro-sala.csv
     
 

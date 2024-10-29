@@ -1,8 +1,5 @@
-
 from flask import Flask, render_template
-from CSV import *
-import csv
-from reserva_app.funcoes import ler_salas_csv, salvar_sala, salvar_reserva, salvar_cadastro
+from reserva_app.funcoes import salvar_sala, salvar_reserva, salvar_cadastro, ler_salas
 
 app = Flask (__name__)
 
@@ -13,7 +10,7 @@ app = Flask (__name__)
 # login
 @app.route('/')
 def login_pag():
-    return render_template('login.html') 
+    return render_template('login.html')
 # cadastro usuario
 @app.route('/cadastro')
 def cadastro_pag():
@@ -21,7 +18,8 @@ def cadastro_pag():
 # reservar sala
 @app.route('/reservar-sala')
 def reservar_sala_pag():
-    return render_template ('reservar-sala.html', salas = ler_salas_csv())
+    return render_template ('reservar-sala.html')
+# , salas = ler_salas_csv()
 # reservas
 @app.route('/reservas')
 def reservas_pag():
