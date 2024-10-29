@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash
-from reserva_app.main import inserir_reserva,listar_salas
+from reserva_app.main import inserir_reserva,listar_salas, inserir_sala
 from reserva_app.conexao_bd import conexao_abrir,conexao_fechar
 
 con = conexao_abrir("localhost", "root", "1234", "ReservaApp")
@@ -50,6 +50,7 @@ def salvar_sala():
         capacidade = request.form['capacidade']
         descricao = request.form['descricao']
         
+        inserir_sala(con, tipo, capacidade, descricao)
         # Salva sala na lista
         dados_reservas.salvar_sala(tipo, capacidade, descricao)
 
@@ -60,7 +61,7 @@ def salvar_reserva():
         final = request.form['final']
 
         # inserir_reserva(con,"3","2025-08-18:12:00:00", "2025-08-18:18:00:00","1")
-        inserir_reserva(con, "3", inicio, final, "1")
+        inserir_reserva(con, sala, inicio, final, "1")
         # Salva reserva na lista
         dados_reservas.salvar_reserva(sala, inicio, final)
         

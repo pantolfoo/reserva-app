@@ -18,7 +18,8 @@ def cadastro_pag():
 # reservar sala
 @app.route('/reservar-sala')
 def reservar_sala_pag():
-    return render_template ('reservar-sala.html')
+    print(ler_salas())
+    return render_template ('reservar-sala.html', salas = ler_salas())
 # , salas = ler_salas_csv()
 # reservas
 @app.route('/reservas')
@@ -47,7 +48,7 @@ def cadastro_post():
 @app.route('/cadastrar-sala', methods=['POST'])
 def salas_post():
     salvar_sala()
-    return render_template('listar-salas.html', salas = ler_salas_csv())
+    return render_template('listar-salas.html', salas = ler_salas())
 
 @app.route('/reservar-sala', methods=['POST'])
 def reservas_post():
@@ -60,7 +61,7 @@ def reservas_post():
 
 @app.route('/listar-salas')
 def listar_salas():
-    salas = ler_salas_csv()
+    salas = ler_salas()
     print(f"Salas carregadas: {salas}")
     return render_template('listar-salas.html', salas=salas)
 #tentatva da leitura do cadastro-sala.csv

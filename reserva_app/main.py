@@ -24,11 +24,21 @@ def listar_salas(con):
     sqlcode = "SELECT * FROM sala"
     cursor.execute(sqlcode)
 
+    salaslista = []
     for sala in cursor:
         print(f"Sala: {sala['idSala']} - Tipo: {sala['tipoSala']} - Capacidade: {sala['capacidadeSala']} - Descrição: {sala['descricaoSala']}")
-
+        salaslista.append(sala)
+    
     cursor.close()
     con.commit()
+    return salaslista
+
+def inserir_sala(con, tipo, capacidade, descricao):
+    cursor = con.cursor()
+    sql = "INSERT INTO sala (tipoSala, capacidadeSala, descricaoSala) VALUES (%s,%s, %s)"
+    cursor.execute(sql, (tipo, capacidade, descricao))
+    con.commit()
+    cursor.close()
 
 def listar_usuarios(con):
     cursor = con.cursor(dictionary=True)  # Criar o cursor com a opção de retorno como dicionário

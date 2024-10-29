@@ -58,9 +58,10 @@
             <label for="sala" class="form-label">Sala</label>
             <select class="form-select" id="sala" name="sala" required>
               <option selected>Selecione a sala</option>
-              
+
               {%for s in salas%}
-                <option value="{{ s.descricao }}">{{ s.descricao }}</option>
+
+              <option value="{{s.idSala}}">{{s.idSala}} - {{ s.tipoSala }}</option>
               {% endfor %}
 
             </select>
