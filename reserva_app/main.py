@@ -1,6 +1,10 @@
 from reserva_app.conexao_bd import conexao_fechar, conexao_abrir
 from reserva_app.funcoes import *
 
+
+# METODOS DE RESERVA
+
+
 def listar_reserva(con):
     cursor = con.cursor(dictionary=True)  # Criar o cursor com a opção de retorno como dicionário
     sqlcode = "SELECT * FROM reserva"
@@ -11,6 +15,7 @@ def listar_reserva(con):
 
     cursor.close()
     con.commit()
+    
 
 def inserir_reserva(con,idSala, inicio, final, idUsuario):
     cursor = con.cursor()
@@ -18,6 +23,29 @@ def inserir_reserva(con,idSala, inicio, final, idUsuario):
     cursor.execute(sql, (idSala ,inicio, final, idUsuario))
     con.commit()
     cursor.close()
+
+#  METODOS DE USUARIO
+
+def inserir_usuario(con, nome, email, senha):
+    cursor = con.cursor()
+    sql = "INSERT INTO usuario (nomeUsuario, emailUsuario, senhaUsuario) VALUES (%s, %s, %s)"
+    cursor.execute(sql, (nome, email, senha))
+    con.commit()
+    cursor.close()
+
+
+def listar_usuarios(con):
+    cursor = con.cursor(dictionary=True)  # Criar o cursor com a opção de retorno como dicionário
+    sqlcode = "SELECT * FROM usuario"
+    cursor.execute(sqlcode)
+
+    for usuario in cursor:
+        print(f"Usuario: {usuario['idUsuario']} - Nome: {usuario['nomeUsuario']} - Email: {usuario['emailUsuario']} - Senha: {usuario['senhaUsuario']} ")
+
+    cursor.close()
+    con.commit()
+
+# METODOS DE SALA
 
 def listar_salas(con):
     cursor = con.cursor(dictionary=True)  # Criar o cursor com a opção de retorno como dicionário
@@ -40,20 +68,16 @@ def inserir_sala(con, tipo, capacidade, descricao):
     con.commit()
     cursor.close()
 
-def listar_usuarios(con):
-    cursor = con.cursor(dictionary=True)  # Criar o cursor com a opção de retorno como dicionário
-    sqlcode = "SELECT * FROM usuario"
-    cursor.execute(sqlcode)
-
-    for usuario in cursor:
-        print(f"Usuario: {usuario['idUsuario']} - Nome: {usuario['nomeUsuario']} - Email: {usuario['emailUsuario']} - Senha: {usuario['senhaUsuario']} ")
-
-    cursor.close()
+def deletar_sala(con, id):
+    cursor = con.cursor()
+    sql = "DELETE from sala WHERE idSala = %s"
+    cursor.execute(sql, (id))
     con.commit()
-
+    cursor.close()
 
 def main():
     con = conexao_abrir("localhost", "root", "1234", "ReservaApp")
+    
     try:
         listar_reserva(con)
         listar_salas(con)

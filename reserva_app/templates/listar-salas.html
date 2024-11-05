@@ -71,12 +71,16 @@
                 <td>{{ sala.capacidadeSala }}</td>
                 <td>
                   <form action="">
-                    <button class="btn btn-sm btn-dark" type="submit"
-                      formaction="/templates/cadastrar-sala.html">Editar</button>
-                    <button class="btn btn-sm btn-dark" type="submit"
-                      formaction="/templates/reservas.html">Desativar</button>
-                    <button class="btn btn-sm btn-dark" type="submit"
-                      formaction="/templates/reservas.html">Excluir</button>
+                    <button class="btn btn-sm btn-dark" type="submit" form
+                      action="/templates/cadastrar-sala.html">Editar</button>
+
+                    <button class="btn btn-sm btn-dark" type="submit" form
+                      action="/templates/reservas.html">Desativar</button>
+
+                    <form action="/listar-salar" method="PUT">
+                      <input type="hidden" name="idSala" value="{{ sala.idSala }}">
+                      <button class="btn btn-sm btn-dark" type="submit">Excluir</button>
+                    </form>
                   </form>
                 </td>
               </tr>

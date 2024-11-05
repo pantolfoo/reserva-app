@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from reserva_app.funcoes import salvar_sala, salvar_reserva, salvar_cadastro, ler_salas
+from reserva_app.main import deletar_sala
 
 app = Flask (__name__)
 
@@ -26,9 +27,9 @@ def reservar_sala_pag():
 def reservas_pag():
     return render_template ('reservas.html')
 # detalhe reserva
-@app.route('/detalhe-reserva')
-def detalhe_reserva_pag():
-    return render_template ('reserva/detalhe-reserva.html')
+# @app.route('/detalhe-reserva')
+# def detalhe_reserva_pag():
+#     return render_template ('reserva/detalhe-reserva.html')
 # cadastrar sala
 @app.route('/cadastrar-sala')
 def cadastro_sala_pag():
@@ -50,7 +51,7 @@ def salas_post():
     salvar_sala()
     return render_template('listar-salas.html', salas = ler_salas())
 
-@app.route('/reservar-sala', methods=['POST'])
+@app.route('/detalhe-reserva', methods=['POST'])
 def reservas_post():
     reserva = salvar_reserva()
     return render_template('reserva/detalhe-reserva.html', reserva = reserva)
@@ -66,3 +67,15 @@ def listar_salas():
     return render_template('listar-salas.html', salas=salas)
 #tentatva da leitura do cadastro-sala.csv
     
+# ROTAS PARA EXCLUIR
+
+@app.route('/listar-salas', methods=['PUT'])
+def excluir_sala(id):
+    deletar_sala(id)
+    reservar_sala_pag()
+
+# @app.route('/listar-salas', methods)
+# def listar_salas():
+#     salas = ler_salas()
+#     print(f"Salas carregadas: {salas}")
+#     return render_template('listar-salas.html', salas=salas)

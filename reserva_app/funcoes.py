@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash
-from reserva_app.main import inserir_reserva,listar_salas, inserir_sala
+from reserva_app.main import inserir_reserva,listar_salas, inserir_sala, inserir_usuario
 from reserva_app.conexao_bd import conexao_abrir,conexao_fechar
 
 con = conexao_abrir("localhost", "root", "1234", "ReservaApp")
@@ -42,6 +42,7 @@ def salvar_cadastro():
         
         # Salva usuário na lista
         dados_reservas.salvar_usuario(nome, email, senha)
+        inserir_usuario(con, nome, email, senha)
         return render_template('reservas.html')
 
 def salvar_sala():
